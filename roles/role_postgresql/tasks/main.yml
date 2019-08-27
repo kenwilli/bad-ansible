@@ -1,0 +1,9 @@
+---
+- name: install postgresql
+  yum:
+    name: postgresql-server
+    state: latest
+  notify:
+    - initialize postgres
+    - initialize postgres some more
+    - start postgres

@@ -10,9 +10,9 @@
       - haproxy
       - tomcat
       - postgresql-server
+      - httpd
 
   tasks:
-
     - name: reverse the enabling of sudo without tty for some ansible commands
       replace:
         path: /etc/sudoers
@@ -30,8 +30,17 @@
         name: "{{ three_tier_packages }}"
         state: absent
 
+    - name: Remove tomcat directory
+      file:
+        path: /usr/share/tomcat/webapps/ROOT/
+        state: absent
+
     - name: Remove index.html
       file:
-        path: /tmp/index.html
+        path: /usr/share/tomcat/webapps/ansible/index.html
         state: absent
-...
+
+    - name: Remove postgresql dir
+      file:
+        path: /var/lib/pgsql/
+        state: absent
